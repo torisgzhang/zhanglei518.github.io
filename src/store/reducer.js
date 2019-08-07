@@ -4,8 +4,10 @@ import { reducer as homeReducer } from "@/pages/home/store";
 import { reducer as scrollTopReducer } from "@/components/ScrollTop/store";
 import { reducer as detailReducer } from "@/pages/detail/store";
 import { reducer as loginReducer } from "@/pages/login/store";
+import appReducer from "./appReducer";
 
 const reducer = combineReducers({
+  app: appReducer,
   header: headerReducer,
   home: homeReducer,
   scrollTop: scrollTopReducer,

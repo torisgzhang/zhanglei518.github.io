@@ -5,6 +5,7 @@ import { actionCreators as loginActionCreators } from '@/pages/login/store';
 import { CSSTransition } from 'react-transition-group';
 import {
   HeaderWrapper,
+  HeaderWrapperMobile,
   Logo,
   Nav,
   NavItem,
@@ -19,8 +20,15 @@ import {
   Button
 } from './style.js';
 import { Link } from 'react-router-dom';
+import { Menu, Dropdown, Icon } from 'antd';
 
 class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dropDown: false
+    };
+  }
   getHotSearchArea() {
     const {
       focused,
@@ -62,61 +70,97 @@ class Header extends PureComponent {
       return null;
     }
   }
+  handleClickShowDropdown() {
+    this.setState({
+      dropDown: true
+    });
+  }
+  handleClickHideDropdown() {
+    this.setState({
+      dropDown: false
+    });
+  }
   render() {
-    const { focused, handleInputFocus, handleInputBlur, list, loginState, userInfo, logOut } = this.props;
-    return (
-      <HeaderWrapper className="header-wrapper clearfix">
-        <Link to="/home">
-          <Logo className="logo" />
-        </Link>
-        <Nav className="nav clearfix">
-          <NavItem className="fl active">首页</NavItem>
-          <NavItem className="fl"><i className="iconfont">&#xe615;</i>下载App</NavItem>
-          {
-            loginState ?
-              <div>
-                <NavItem style={{ cursor: 'pointer' }} className="fr">{userInfo.get('userName')}</NavItem>
-                <NavItem style={{ cursor: 'pointer' }} className="fr">
-                  <img src={userInfo.get('userIcon')} style={{ width: 58, height: 58, borderRadius: 58 }} alt=""/>
-                </NavItem>
-                <NavItem style={{ cursor: 'pointer' }} onClick={logOut} className="fr">退出登录</NavItem>
-              </div> :
-              <Link to="/login">
-                <NavItem className="fr">登录</NavItem>
-              </Link>
-          }
-          <NavItem className="fr">
-            <i className="iconfont">&#xe636;</i>
-          </NavItem>
-          <SearchWrappper className="fl">
-            <CSSTransition
-              timeout={200}
-              in={focused}
-              classNames="slide"
-            >
-              <NavSearch
-                onFocus={() => handleInputFocus(list)}
-                onBlur={handleInputBlur}
-                className={focused ? 'focused' : ''}
-              >
-              </NavSearch>
-            </CSSTransition>
-            <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}
-            >&#xe69d;</i>
-            {this.getHotSearchArea()}
-          </SearchWrappper>
-        </Nav>
-        <Addition className="fr">
-          <Button className="fl sign-up">注册</Button>
-          <Link to='/write'>
-            <Button className="fl write-btn">
-              <i className="iconfont" style={{ marginRight: 10 }}>&#xe61c;</i>
-              写文章
-            </Button>
+    const { focused, isMobile, handleInputFocus, handleInputBlur, list, loginState, userInfo, logOut } = this.props;
+    if(isMobile && window.location.pathname === '/') {
+      return (
+        <HeaderWrapperMobile className="header-wrapper clearfix">
+          <div onClick={this.handleClickShowDropdown.bind(this)} className="fr icon">
+            <Icon type="menu" style={{color: '#fff'}} />
+          </div>
+          <CSSTransition
+            timeout={200}
+            in={this.state.dropDown}
+            classNames="slide"
+          >
+            <div className={this.state.dropDown ? 'dropdown show' : 'dropdown'}>
+              <div className="img-logo"></div>
+              <div className="lists"><Link to="/home"><span>HOME</span></Link></div>
+              <div className="lists"><Link to="/home"><span>TAG</span></Link></div>
+              <div className="lists"><Link to="/home"><span>ABOUT</span></Link></div>
+              <div className="lists">
+                <Icon onClick={this.handleClickHideDropdown.bind(this)} style={{color: '#787878'}} type="up" />
+              </div>
+            </div>
+          </CSSTransition>
+          
+        </HeaderWrapperMobile>
+      );
+    } else {
+      return (
+        <HeaderWrapper className="header-wrapper clearfix">
+          <Link to="/home">
+            <Logo className="logo" />
           </Link>
-        </Addition>
-      </HeaderWrapper>
-    );
+          <Nav className="nav clearfix">
+            <NavItem className="fl active">首页</NavItem>
+            <NavItem className="fl"><i className="iconfont">&#xe615;</i>下载App</NavItem>
+            {
+              loginState ?
+                <div>
+                  <NavItem style={{ cursor: 'pointer' }} className="fr">{userInfo.get('userName')}</NavItem>
+                  <NavItem style={{ cursor: 'pointer' }} className="fr">
+                    <img src={userInfo.get('userIcon')} style={{ width: 58, height: 58, borderRadius: 58 }} alt=""/>
+                  </NavItem>
+                  <NavItem style={{ cursor: 'pointer' }} onClick={logOut} className="fr">退出登录</NavItem>
+                </div> :
+                <Link to="/login">
+                  <NavItem className="fr">登录</NavItem>
+                </Link>
+            }
+            <NavItem className="fr">
+              <i className="iconfont">&#xe636;</i>
+            </NavItem>
+            <SearchWrappper className="fl">
+              <CSSTransition
+                timeout={200}
+                in={focused}
+                classNames="slide"
+              >
+                <NavSearch
+                  onFocus={() => handleInputFocus(list)}
+                  onBlur={handleInputBlur}
+                  className={focused ? 'focused' : ''}
+                >
+                </NavSearch>
+              </CSSTransition>
+              <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}
+              >&#xe69d;</i>
+              {this.getHotSearchArea()}
+            </SearchWrappper>
+          </Nav>
+          <Addition className="fr">
+            <Button className="fl sign-up">注册</Button>
+            <Link to='/write'>
+              <Button className="fl write-btn">
+                <i className="iconfont" style={{ marginRight: 10 }}>&#xe61c;</i>
+                写文章
+              </Button>
+            </Link>
+          </Addition>
+        </HeaderWrapper>
+      );
+    }
   }
 }
 
@@ -130,6 +174,7 @@ const mapStateToProps = (state) => {
     mouseIn: state.getIn(['header', 'mouseIn']),
     loginState: state.getIn(['login', 'loginState']),
     userInfo: state.getIn(['login', 'userInfo']),
+    isMobile: state.getIn(['app', 'isMobile']),
   }
 }
 const mapDispatchToProps = (dispatch) => {

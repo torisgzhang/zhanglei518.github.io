@@ -1,12 +1,13 @@
 import React, { lazy, Suspense, Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import { Provider } from "react-redux";
 import store from '@/store';
+import GloableStore from './gloableStore';
 import { GlobalStyle } from '@/common/styles/globalStyle';
 import { IconfontStyle } from '@/statics/iconfont/iconfont.js';
 
 import Layout from '@/components/Layout/Layout.jsx';
-
 import Home from "@/pages/home/home.jsx";
 import Welcome from '@/pages/welcome/welcome.jsx';
 const Login = lazy(() => import('@/pages/login/login.jsx'));
@@ -29,7 +30,7 @@ class App extends Component {
     
     return (
       <Provider store={store}>
-        <div>
+        <GloableStore>
           <GlobalStyle />
           <IconfontStyle />
           <Router>
@@ -40,10 +41,10 @@ class App extends Component {
               </Suspense>
             </Switch>
           </Router>
-        </div>
+        </GloableStore>
       </Provider>
     );
   }
 }
 
-export default App;
+export default (App);

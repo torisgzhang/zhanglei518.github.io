@@ -1,0 +1,1 @@
+export const GET_SCREEN_WIDTH = 'app_get_screen_width';

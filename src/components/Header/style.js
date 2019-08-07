@@ -1,5 +1,66 @@
 import styled from 'styled-components';
-import logoPic from '@/statics/imgs/logo.png';
+import logoPic from '@/statics/imgs/blog-logo.jpg';
+
+export const HeaderWrapperMobile = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 58px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, .1);
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-top: 14px;
+    margin-right: 10px;
+    .anticon-menu {
+      font-size: 30px;
+    }
+  }
+  .dropdown {
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    position: absolute;
+    top: -245px;
+    background: #fff;
+    text-align: center;
+    &.show {
+      top: 0;
+    }
+    &.slide-enter {
+      transition: all .2s ease-out;
+    }
+    &.slide-enter-active {
+      top: 0;
+    }
+    &.slide-exit {
+      transition: all .2s ease-out;
+    }
+    &.slide-exit-active {
+      top: -245px;
+    }
+    .img-logo {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: url(${logoPic});
+      background-size: contain;
+      margin-bottom: 10px;
+      border-radius: 100%;
+    }
+    .lists {
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+      span {
+        color: #787878;
+      }
+    }
+  }
+`;
 
 export const HeaderWrapper = styled.div`
   position: relative;
