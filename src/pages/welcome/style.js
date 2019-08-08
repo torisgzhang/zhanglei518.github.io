@@ -11,7 +11,6 @@ export const WelcomeWrapperPc = styled.div`
   .mask {
     width: 100%;
     height: 100%;
-    background: ${props => props.isMobile ? '#32b67a' : 'rgba(0, 0, 0, .5)'};
     .info {
       padding: 20px;
       position: absolute;

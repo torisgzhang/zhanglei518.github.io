@@ -2,165 +2,36 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '@/pages/login/store';
-import { CSSTransition } from 'react-transition-group';
+import { Navbar, Nav } from 'react-bootstrap';
+
 import {
   HeaderWrapper,
-  HeaderWrapperMobile,
-  Logo,
-  Nav,
-  NavItem,
-  SearchWrappper,
-  NavSearch,
-  SearchHot,
-  SearchHotTitle,
-  SearchHotSwitch,
-  SearchList,
-  SearchItem,
-  Addition,
-  Button
+  HeaderWrapperInner,
+  Logo
 } from './style.js';
-import { Link } from 'react-router-dom';
-import { Menu, Dropdown, Icon } from 'antd';
 
 class Header extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dropDown: false
-    };
-  }
-  getHotSearchArea() {
-    const {
-      focused,
-      list,
-      page,
-      totalPage,
-      mouseIn,
-      handleMouseEnter,
-      handleMouseLeave,
-      handleClickChange
-    } = this.props;
-    const newList = list.toJS();
-    const newItem = [];
-    //maxPageNum 当最后一页数据少于10的时候避免渲染多余的dom
-    const maxPageNum = (page === totalPage ? newList.length : page * 10);
-    if (newList.length) {
-      for (let i = (page - 1) * 10; i < maxPageNum; i++) {
-        newItem.push(
-          <SearchItem key={newList[i]}>{newList[i]}</SearchItem>
-        )
-      }
-    }
-    if (focused || mouseIn) {
-      return (
-        <SearchHot
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <SearchHotTitle>热门搜索</SearchHotTitle>
-          <SearchHotSwitch onClick={() => handleClickChange(page, totalPage, this.spinIconn)}>
-            <i ref={(icon) => { this.spinIconn = icon }} className="iconfont spin">&#xe606;</i>换一批
-          </SearchHotSwitch>
-          <SearchList>
-            {newItem}
-          </SearchList>
-        </SearchHot>
-      );
-    } else {
-      return null;
-    }
-  }
-  handleClickShowDropdown() {
-    this.setState({
-      dropDown: true
-    });
-  }
-  handleClickHideDropdown() {
-    this.setState({
-      dropDown: false
-    });
-  }
   render() {
-    const { focused, isMobile, handleInputFocus, handleInputBlur, list, loginState, userInfo, logOut } = this.props;
-    if(isMobile && window.location.pathname === '/') {
-      return (
-        <HeaderWrapperMobile className="header-wrapper clearfix">
-          <div onClick={this.handleClickShowDropdown.bind(this)} className="fr icon">
-            <Icon type="menu" style={{color: '#fff'}} />
-          </div>
-          <CSSTransition
-            timeout={200}
-            in={this.state.dropDown}
-            classNames="slide"
-          >
-            <div className={this.state.dropDown ? 'dropdown show' : 'dropdown'}>
-              <div className="img-logo"></div>
-              <div className="lists"><Link to="/home"><span>HOME</span></Link></div>
-              <div className="lists"><Link to="/home"><span>TAG</span></Link></div>
-              <div className="lists"><Link to="/home"><span>ABOUT</span></Link></div>
-              <div className="lists">
-                <Icon onClick={this.handleClickHideDropdown.bind(this)} style={{color: '#787878'}} type="up" />
-              </div>
-            </div>
-          </CSSTransition>
-          
-        </HeaderWrapperMobile>
-      );
-    } else {
-      return (
-        <HeaderWrapper className="header-wrapper clearfix">
-          <Link to="/home">
-            <Logo className="logo" />
-          </Link>
-          <Nav className="nav clearfix">
-            <NavItem className="fl active">首页</NavItem>
-            <NavItem className="fl"><i className="iconfont">&#xe615;</i>下载App</NavItem>
-            {
-              loginState ?
-                <div>
-                  <NavItem style={{ cursor: 'pointer' }} className="fr">{userInfo.get('userName')}</NavItem>
-                  <NavItem style={{ cursor: 'pointer' }} className="fr">
-                    <img src={userInfo.get('userIcon')} style={{ width: 58, height: 58, borderRadius: 58 }} alt=""/>
-                  </NavItem>
-                  <NavItem style={{ cursor: 'pointer' }} onClick={logOut} className="fr">退出登录</NavItem>
-                </div> :
-                <Link to="/login">
-                  <NavItem className="fr">登录</NavItem>
-                </Link>
-            }
-            <NavItem className="fr">
-              <i className="iconfont">&#xe636;</i>
-            </NavItem>
-            <SearchWrappper className="fl">
-              <CSSTransition
-                timeout={200}
-                in={focused}
-                classNames="slide"
-              >
-                <NavSearch
-                  onFocus={() => handleInputFocus(list)}
-                  onBlur={handleInputBlur}
-                  className={focused ? 'focused' : ''}
-                >
-                </NavSearch>
-              </CSSTransition>
-              <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}
-              >&#xe69d;</i>
-              {this.getHotSearchArea()}
-            </SearchWrappper>
-          </Nav>
-          <Addition className="fr">
-            <Button className="fl sign-up">注册</Button>
-            <Link to='/write'>
-              <Button className="fl write-btn">
-                <i className="iconfont" style={{ marginRight: 10 }}>&#xe61c;</i>
-                写文章
-              </Button>
-            </Link>
-          </Addition>
-        </HeaderWrapper>
-      );
-    }
+    const currentPathName = window.location.pathname;
+    return (
+      <HeaderWrapper>
+        <HeaderWrapperInner>
+          <Navbar collapseOnSelect expand="lg" >
+            <Navbar.Brand href="/">
+              <Logo></Logo>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="ml-auto">
+                <Nav.Link className={currentPathName === '/home' ? 'selected' : ''} href="/home">HOME</Nav.Link>
+                <Nav.Link className={currentPathName === '/tag' ? 'selected' : ''} href="/tag">TAG</Nav.Link>
+                <Nav.Link className={currentPathName === '/about' ? 'selected' : ''} href="/about">ABOUT</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </HeaderWrapperInner>
+      </HeaderWrapper>
+    );
   }
 }
 

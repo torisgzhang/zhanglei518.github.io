@@ -1,0 +1,32 @@
+{
+  "code": 200,
+  "data": [{
+    "tagId": 1,
+    "tagName": "JavaScript",
+    "color": "rgba(50, 182, 122, .5)"
+  }, {
+    "tagId": 2,
+    "tagName": "Node.js",
+    "color": "#3296fa"
+  }, {
+    "tagId": 3,
+    "tagName": "React.js",
+    "color": "#a9c"
+  }, {
+    "tagId": 4,
+    "tagName": "Vue.js",
+    "color": "#cb3"
+  }, {
+    "tagId": 5,
+    "tagName": "Angular.js",
+    "color": "#da9"
+  }, {
+    "tagId": 6,
+    "tagName": "Java",
+    "color": "#f60"
+  }, {
+    "tagId": 7,
+    "tagName": "C++",
+    "color": "#c9a"
+  }]
+}

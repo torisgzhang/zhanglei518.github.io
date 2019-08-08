@@ -1,0 +1,1 @@
+export const GET_TAGS = 'side_get_tags';

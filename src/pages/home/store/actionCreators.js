@@ -4,7 +4,6 @@ import { fromJS } from "immutable";
 
 const getHomeDataAction = (data) => ({
   type: actionTypes.GET_HOME_DATA,
-  topicList: data.topicList,
   articleList: data.articleList
 });
 
