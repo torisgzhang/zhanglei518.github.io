@@ -34,6 +34,7 @@ export const HeaderWrapperInner = styled.div`
       margin-left: 10px;
       color: #787878;
       font-weight: bold;
+      text-decoration: none;
       &.selected {
         color: #32b67a;
       }

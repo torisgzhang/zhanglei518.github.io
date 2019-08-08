@@ -2,9 +2,10 @@ import { actionTypes }  from './index';
 import axios from 'axios';
 import { fromJS } from "immutable";
 
-const tagsAction = (tagLists) => ({
+const tagsAction = (data) => ({
   type: actionTypes.GET_TAGS,
-  tagLists: fromJS(tagLists)
+  tagLists: fromJS(data.tagLists),
+  listTotalNum: fromJS(data.listTotalNum)
 });
 
 export const getTagsFromNet = () => {

@@ -1,20 +1,24 @@
 import React, { PureComponent } from 'react';
 import logoImg from '@/statics/imgs/blog-logo.jpg';
 import { Icon } from 'antd';
+import { NavLink } from 'react-router-dom';
 import {
-  SideTagWrapper,
+  // SideTagWrapper,
   SideInfoWrapper,
-  Span
+  // Span
 } from './style';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 
 class Side extends PureComponent {
   render() {
-    const { tagLists } = this.props;
+    const {
+      // tagLists, 
+      listTotalNum
+    } = this.props;
     return (
       <div>
-        <SideTagWrapper className="clearfix">
+        {/* <SideTagWrapper className="clearfix">
           {
             tagLists.size ?
             tagLists.map((item, index) => {
@@ -24,7 +28,7 @@ class Side extends PureComponent {
             }) :
             null
           }
-        </SideTagWrapper>
+        </SideTagWrapper> */}
         <SideInfoWrapper>
           <div className="header-icon">
             <img src={logoImg} alt=""/>
@@ -43,9 +47,11 @@ class Side extends PureComponent {
               分类
             </div>
             <div className="lists">
-              <span>23</span>
-              <br />
-              标签
+              <NavLink to='/tag'>
+                <span>{listTotalNum}</span>
+                <br />
+                标签
+              </NavLink>
             </div>
           </div>
           <div className="recommend-link">
@@ -64,7 +70,8 @@ class Side extends PureComponent {
 }
 
 const mapState = (state) => ({
-  tagLists: state.getIn(['side', 'tagLists'])
+  tagLists: state.getIn(['side', 'tagLists']),
+  listTotalNum: state.getIn(['side', 'listTotalNum'])
 });
 const mapDispatch = (dispatch) => ({
   getTag() {

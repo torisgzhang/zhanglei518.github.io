@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import lessVariables from '@/common/styles/variable-less.js';
 
 export const ListItem = styled.div`
   width: 100%;
@@ -6,7 +7,7 @@ export const ListItem = styled.div`
   background: #fff;
   margin-bottom: 10px;
   box-sizing: border-box;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+  box-shadow: ${lessVariables.LESS_VARIABLES.boxShadowBase};
   .title {
     color: #333;
     margin-bottom: 5px;

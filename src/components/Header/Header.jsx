@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '@/pages/login/store';
 import { Navbar, Nav } from 'react-bootstrap';
-
+import { NavLink  } from 'react-router-dom';
 import {
   HeaderWrapper,
   HeaderWrapperInner,
@@ -12,26 +12,28 @@ import {
 
 class Header extends PureComponent {
   render() {
-    const currentPathName = window.location.pathname;
     return (
       <HeaderWrapper>
         <HeaderWrapperInner>
           <Navbar collapseOnSelect expand="lg" >
-            <Navbar.Brand href="/">
+            <NavLink to="/">
               <Logo></Logo>
-            </Navbar.Brand>
+            </NavLink>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
-                <Nav.Link className={currentPathName === '/home' ? 'selected' : ''} href="/home">HOME</Nav.Link>
-                <Nav.Link className={currentPathName === '/tag' ? 'selected' : ''} href="/tag">TAG</Nav.Link>
-                <Nav.Link className={currentPathName === '/about' ? 'selected' : ''} href="/about">ABOUT</Nav.Link>
+                <NavLink activeClassName="selected" to="/home">HOME</NavLink >
+                <NavLink activeClassName="selected" to="/tag">TAG</NavLink >
+                <NavLink activeClassName="selected" to="/about">ABOUT</NavLink >
               </Nav>
             </Navbar.Collapse>
           </Navbar>
         </HeaderWrapperInner>
       </HeaderWrapper>
     );
+  }
+  hancleClickNav(path) {
+    this.props.navItemAvtive(path)
   }
 }
 
@@ -43,6 +45,7 @@ const mapStateToProps = (state) => {
     page: state.getIn(['header', 'page']),
     totalPage: state.getIn(['header', 'totalPage']),
     mouseIn: state.getIn(['header', 'mouseIn']),
+    activeIndex: state.getIn(['header', 'activeIndex']),
     loginState: state.getIn(['login', 'loginState']),
     userInfo: state.getIn(['login', 'userInfo']),
     isMobile: state.getIn(['app', 'isMobile']),
@@ -79,7 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     logOut() {
       dispatch(loginActionCreators.Logout());
-    }
+    },
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -15,7 +15,7 @@ class Layout extends PureComponent {
           <LayoutWrapper>
             <Container>
               <Row>
-                <Col sm={3}>
+                <Col style={{padding: 0}} sm={3}>
                   <Side></Side>
                 </Col>
                 <Col sm={9}>

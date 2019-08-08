@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import lessVariables from '@/common/styles/variable-less.js';
 
 export const SideTagWrapper = styled.div`
   width: 100%;
   padding: 20px;
   margin-top: 20px;
   box-sizing: border-box;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+  box-shadow: ${lessVariables.LESS_VARIABLES.boxShadowBase};
   background: #fff;
 `;
 export const Span = styled.span`
@@ -21,7 +22,7 @@ export const SideInfoWrapper = styled.div`
   padding: 20px;
   margin-top: 20px;
   box-sizing: border-box;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+  box-shadow: ${lessVariables.LESS_VARIABLES.boxShadowBase};
   text-align: center;
   background: #fff;
   .header-icon {
@@ -30,7 +31,7 @@ export const SideInfoWrapper = styled.div`
     border-radius: 100%;
     overflow: hidden;
     margin: 0 auto;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+    box-shadow: ${lessVariables.LESS_VARIABLES.boxShadowBase};
     img {
       width: 100px;
       height: 100px;
@@ -54,6 +55,10 @@ export const SideInfoWrapper = styled.div`
     .lists {
       font-size: 12px;
       color: #aaa;
+      a {
+        color: #aaa;
+        text-decoration: none;
+      }
       span {
         font-size: 16px;
         color: #333;

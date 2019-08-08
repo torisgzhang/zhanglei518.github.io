@@ -27,7 +27,7 @@ export const mouseLeave = () => ({
 export const changePage = (page) => ({
   type: actionTypes.CHANGE_PAGE,
   page
-})
+});
 export const getList = () =>  {
   return (dispatch) => {
     axios.get('/api/headerList.json').then((res) => {
@@ -37,4 +37,9 @@ export const getList = () =>  {
       console.log('error')
     })
   }
-}
+};
+
+export const getNavItemActive = (path) => ({
+  type: actionTypes.GET_NAVITEM_ACTIVE,
+  path
+});

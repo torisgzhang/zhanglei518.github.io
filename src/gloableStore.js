@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 class GloableStore extends PureComponent {
   render() {
     return (
-      <div>
+      // background: 'linear-gradient(200deg,#a0cfe4,#e8c37e)
+      <div >
         {this.props.children}
       </div>
     );
