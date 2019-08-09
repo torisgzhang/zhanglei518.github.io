@@ -85,7 +85,7 @@ export const ArticleList = styled.div`
         .anticon {
           color: #787878;
           position: relative;
-          bottom: 4px;
+          bottom: 1px;
           margin-right: 3px;
           font-size: 12px;
         }

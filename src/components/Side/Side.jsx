@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import logoImg from '@/statics/imgs/blog-logo.jpg';
 import { Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import {
-  // SideTagWrapper,
   SideInfoWrapper,
-  // Span
 } from './style';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
@@ -13,44 +12,43 @@ import { actionCreators } from './store';
 class Side extends PureComponent {
   render() {
     const {
-      // tagLists, 
-      listTotalNum
+      listTotalNum,
+      showMobileNavItem
     } = this.props;
     return (
-      <div>
-        {/* <SideTagWrapper className="clearfix">
-          {
-            tagLists.size ?
-            tagLists.map((item, index) => {
-              return (
-                <Span background={item.get('color')} key={index} className="tag-lists fl">{item.get('tagName')}</Span>
-              );
-            }) :
-            null
-          }
-        </SideTagWrapper> */}
-        <SideInfoWrapper>
+      <CSSTransition
+        timeout={200}
+        in={showMobileNavItem}
+        classNames="slide"
+      >
+        <SideInfoWrapper className={showMobileNavItem ? 'SideInfoWrapper isShow' : 'SideInfoWrapper'}>
           <div className="header-icon">
-            <img src={logoImg} alt=""/>
+            <NavLink to='/home'>
+              <img src={logoImg} alt=""/>
+            </NavLink>
           </div>
           <p className="user-name">Torisg</p>
           <p className="desc">认真且怂，从一而终</p>
           <div className="num-list">
             <div className="lists">
-              <span>26</span>
-              <br />
-              日志
-            </div>
-            <div className="lists">
-              <span>2</span>
-              <br />
-              分类
+              <NavLink to='/home'>
+                <span>{listTotalNum}</span>
+                <br />
+                HOME
+              </NavLink>
             </div>
             <div className="lists">
               <NavLink to='/tag'>
                 <span>{listTotalNum}</span>
                 <br />
-                标签
+                TAG
+              </NavLink>
+            </div>
+            <div className="lists">
+              <NavLink to='/about'>
+                <span>{listTotalNum}</span>
+                <br />
+                ABOUT
               </NavLink>
             </div>
           </div>
@@ -60,8 +58,7 @@ class Side extends PureComponent {
             </a>
           </div>
         </SideInfoWrapper>
-      </div>
-      
+      </CSSTransition>
     );
   }
   componentDidMount() {
@@ -70,7 +67,7 @@ class Side extends PureComponent {
 }
 
 const mapState = (state) => ({
-  tagLists: state.getIn(['side', 'tagLists']),
+  showMobileNavItem: state.getIn(['header', 'showMobileNavItem']),
   listTotalNum: state.getIn(['side', 'listTotalNum'])
 });
 const mapDispatch = (dispatch) => ({

@@ -20,7 +20,7 @@ class GloableStore extends PureComponent {
     window.removeEventListener('resize', this.screenChange(screenWidth));
   }
   screenChange(screenWidth) {
-    if(screenWidth < 600) {
+    if(screenWidth < 768) {
       this.props.setIsMobile(true);
     } else {
       this.props.setIsMobile(false);

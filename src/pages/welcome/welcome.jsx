@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Header from '@/components/Header/Header.jsx';
 import {
   WelcomeWrapperPc,
   WelcomeWrapperMobile
@@ -14,12 +13,15 @@ class Welcome extends PureComponent {
     if(isMobile) {
       return (
         <div>
-          <Header />
           <WelcomeWrapperMobile isMobile={isMobile}>
             <div className="mask">
               <div className="info">
                 <img src="http://res-1258329261.picgz.myqcloud.com/usericon/b8362e15-3659-4cd6-8ab0-69ffa6df9698.jpg!usericon200_200" alt=""/>
                 <p>认真且怂，从一而终</p>
+                <div>
+                  <Link to='/home'>BLOG</Link>
+                  <Link to='/home'>RESUME</Link>
+                </div>
               </div>
             </div>
           </WelcomeWrapperMobile>
@@ -33,9 +35,8 @@ class Welcome extends PureComponent {
               <img src="http://res-1258329261.picgz.myqcloud.com/usericon/b8362e15-3659-4cd6-8ab0-69ffa6df9698.jpg!usericon200_200" alt=""/>
               <p>认真且怂，从一而终</p>
               <div>
-                <Link to="/home"><span>HOME</span></Link>
-                <Link to="/home"><span>TAG</span></Link>
-                <Link to="/home"><span>ABOUT</span></Link>
+                <Link to="/home">BLOG</Link>
+                <Link to="/home">RESUME</Link>
               </div>
             </div>
           </div>

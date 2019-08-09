@@ -1,15 +1,15 @@
 import React, { lazy, Suspense, Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
 import { Provider } from "react-redux";
 import store from '@/store';
 import GloableStore from './gloableStore';
 import { GlobalStyle } from '@/common/styles/globalStyle';
 import { IconfontStyle } from '@/statics/iconfont/iconfont.js';
-import { Spin } from 'antd';
+
 import Layout from '@/components/Layout/Layout.jsx';
 import Home from "@/pages/home/home.jsx";
 import Welcome from '@/pages/welcome/welcome.jsx';
+import Loading from '@/components/Loading/Loading.jsx';
 const Login = lazy(() => import('@/pages/login/login.jsx'));
 const Tag = lazy(() => import('@/pages/tag/tag.jsx'));
 const About = lazy(() => import('@/pages/about/about.jsx'));
@@ -38,7 +38,7 @@ class App extends Component {
           <Router>
             <Switch>
               <Route path="/" exact component={Welcome} />
-              <Suspense fallback={<Spin size="large" />}>
+              <Suspense fallback={<Loading />}>
                 <Route path="/" render={() => LayoutRouter} />
               </Suspense>
             </Switch>

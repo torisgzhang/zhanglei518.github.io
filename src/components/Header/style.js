@@ -1,45 +1,58 @@
 import styled from 'styled-components';
+import lessVariables from '@/common/styles/variable-less.js';
+import { device } from '@/common/styles/device';
 import logoPic from '@/statics/imgs/blog-logo.jpg';
 
 export const HeaderWrapper = styled.div`
-  position: relative;
   width: 100%;
   height: 58px;
   background: #fff;
-  box-shadow: 0px 1px 10px rgba(0, 0, 0, .1);
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  box-shadow: ${lessVariables.LESS_VARIABLES.boxShadowBase};
+  
 `;
 
 export const HeaderWrapperInner = styled.div`
-  position: relative;
-  max-width: 1080px;
   height: 58px;
   line-height: 58px;
   margin: 0 auto;
-  .navbar {
-    width: 100%;
-    height: 58px;
-    padding: 0;
-    button {
-      padding: 5px;
-      margin-right: 10px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  @media ${device.tablet} {
+    max-width: 1080px;
+  }
+  a {
+    color: #787878;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .little-nav {
+    cursor: pointer;
+    @media ${device.tablet} {
+      display: none;
     }
-    #responsive-navbar-nav {
-      height: 58px;
-      .navbar-nav {
-        background: #fff;
-      }
+    .head-menu {
+      font-size: 30px;
+      line-height: 65px;
+    }
+  }
+  .nav {
+    display: none;
+    @media ${device.tablet} {
+      display: block;
     }
     a {
-      padding: 0;
+      font-size: 14px;
       margin-left: 10px;
-      color: #787878;
       font-weight: bold;
-      text-decoration: none;
       &.selected {
         color: #32b67a;
       }
     }
   }
+  
 `;
 
 export const Logo = styled.div`
